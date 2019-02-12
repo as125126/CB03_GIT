@@ -11,6 +11,8 @@ namespace bus0917_CS
         MySqlCommand commandDatabase;
 
         public SQLClass(string command, string SQLConnectionString)
+        //command :sql指令 例如 select * from tb1 
+        //SQLConnectionString : 欲連接之資料庫 例如 "datasource=127.0.0.1;port=3306;username=root;password=;database=db;sslmode = none;";
         {
             databaseConnection = new MySqlConnection(SQLConnectionString);
             commandDatabase = new MySqlCommand(command, databaseConnection);

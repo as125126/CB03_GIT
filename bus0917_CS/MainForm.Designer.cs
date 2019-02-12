@@ -352,7 +352,7 @@
             this.TakePictureTab.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.TakePictureTab.Name = "TakePictureTab";
             this.TakePictureTab.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.TakePictureTab.Size = new System.Drawing.Size(761, 372);
+            this.TakePictureTab.Size = new System.Drawing.Size(761, 370);
             this.TakePictureTab.TabIndex = 1;
             this.TakePictureTab.Text = "Take Picture";
             this.TakePictureTab.UseVisualStyleBackColor = true;
@@ -383,7 +383,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(749, 362);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(749, 360);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
             // label11
@@ -412,7 +412,7 @@
             // 
             this.takePicStartButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.takePicStartButton.AutoSize = true;
-            this.takePicStartButton.Location = new System.Drawing.Point(86, 290);
+            this.takePicStartButton.Location = new System.Drawing.Point(86, 289);
             this.takePicStartButton.Name = "takePicStartButton";
             this.takePicStartButton.Size = new System.Drawing.Size(76, 41);
             this.takePicStartButton.TabIndex = 2;
@@ -425,7 +425,7 @@
             this.takePicFinishButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.takePicFinishButton.AutoSize = true;
             this.takePicFinishButton.Enabled = false;
-            this.takePicFinishButton.Location = new System.Drawing.Point(328, 290);
+            this.takePicFinishButton.Location = new System.Drawing.Point(328, 289);
             this.takePicFinishButton.Name = "takePicFinishButton";
             this.takePicFinishButton.Size = new System.Drawing.Size(91, 41);
             this.takePicFinishButton.TabIndex = 3;
@@ -438,7 +438,7 @@
             this.takePicCancelButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.takePicCancelButton.AutoSize = true;
             this.takePicCancelButton.Enabled = false;
-            this.takePicCancelButton.Location = new System.Drawing.Point(573, 290);
+            this.takePicCancelButton.Location = new System.Drawing.Point(573, 289);
             this.takePicCancelButton.Name = "takePicCancelButton";
             this.takePicCancelButton.Size = new System.Drawing.Size(100, 41);
             this.takePicCancelButton.TabIndex = 4;
@@ -452,7 +452,7 @@
             this.takePicListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.takePicListView.Location = new System.Drawing.Point(3, 86);
             this.takePicListView.Name = "takePicListView";
-            this.takePicListView.Size = new System.Drawing.Size(743, 198);
+            this.takePicListView.Size = new System.Drawing.Size(743, 197);
             this.takePicListView.TabIndex = 5;
             this.takePicListView.UseCompatibleStateImageBehavior = false;
             this.takePicListView.SelectedIndexChanged += new System.EventHandler(this.takePicListView_SelectedIndexChanged);
@@ -462,9 +462,9 @@
             this.takePicLabel.AutoSize = true;
             this.tableLayoutPanel3.SetColumnSpan(this.takePicLabel, 3);
             this.takePicLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.takePicLabel.Location = new System.Drawing.Point(3, 334);
+            this.takePicLabel.Location = new System.Drawing.Point(3, 333);
             this.takePicLabel.Name = "takePicLabel";
-            this.takePicLabel.Size = new System.Drawing.Size(743, 28);
+            this.takePicLabel.Size = new System.Drawing.Size(743, 27);
             this.takePicLabel.TabIndex = 6;
             this.takePicLabel.Text = "takePicLabel";
             this.takePicLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -495,7 +495,7 @@
             this.TrainXMLTab.Location = new System.Drawing.Point(4, 38);
             this.TrainXMLTab.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.TrainXMLTab.Name = "TrainXMLTab";
-            this.TrainXMLTab.Size = new System.Drawing.Size(761, 372);
+            this.TrainXMLTab.Size = new System.Drawing.Size(761, 370);
             this.TrainXMLTab.TabIndex = 2;
             this.TrainXMLTab.Text = "Training";
             this.TrainXMLTab.UseVisualStyleBackColor = true;
@@ -517,7 +517,7 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(761, 372);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(761, 370);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // trainingTitleLabel
@@ -536,7 +536,7 @@
             this.trainingStatusLabel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.trainingStatusLabel.AutoSize = true;
             this.trainingStatusLabel.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.trainingStatusLabel.Location = new System.Drawing.Point(296, 350);
+            this.trainingStatusLabel.Location = new System.Drawing.Point(296, 348);
             this.trainingStatusLabel.Name = "trainingStatusLabel";
             this.trainingStatusLabel.Size = new System.Drawing.Size(168, 22);
             this.trainingStatusLabel.TabIndex = 1;
@@ -545,7 +545,7 @@
             // trainingTrainButton
             // 
             this.trainingTrainButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.trainingTrainButton.Location = new System.Drawing.Point(313, 316);
+            this.trainingTrainButton.Location = new System.Drawing.Point(313, 314);
             this.trainingTrainButton.Name = "trainingTrainButton";
             this.trainingTrainButton.Size = new System.Drawing.Size(134, 31);
             this.trainingTrainButton.TabIndex = 2;
@@ -558,7 +558,7 @@
             this.trainingListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.trainingListView.Location = new System.Drawing.Point(3, 34);
             this.trainingListView.Name = "trainingListView";
-            this.trainingListView.Size = new System.Drawing.Size(755, 276);
+            this.trainingListView.Size = new System.Drawing.Size(755, 274);
             this.trainingListView.TabIndex = 3;
             this.trainingListView.UseCompatibleStateImageBehavior = false;
             // 

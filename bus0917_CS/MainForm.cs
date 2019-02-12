@@ -438,85 +438,62 @@ namespace bus0917_CS
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            MySqlConnection comboBoxItems = new MySqlConnection(MySQLConnectionString);
+            #region 檢查mysql有沒有打開
+            MySqlConnection CheckDB = new MySqlConnection(MySQLConnectionString);
             try
             {
-                comboBoxItems.Open();
-                MySqlCommand comboBoxItems_con = new MySqlCommand("select * from student_info", comboBoxItems);
-
-                MySqlDataReader comboBoxItems_Reader = comboBoxItems_con.ExecuteReader();
-                while (comboBoxItems_Reader.Read())
-                    comboBox1.Items.Add(comboBoxItems_Reader.GetString(0));
-                comboBoxItems.Close();
+                CheckDB.Open();
+                CheckDB.Close();
+                MySqlConnection.ClearPool(CheckDB);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("Query error" + ex.Message);
+                MessageBox.Show("請開啟MySQL，再執行本程式\n", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                Environment.Exit(Environment.ExitCode);
             }
-
+            #endregion
             listBox1.Width = tableLayoutPanel1.Controls[2].Width - 3;
             textBox1.Width = tableLayoutPanel1.Controls[2].Width - 3;
             button1.Width = tableLayoutPanel1.Controls[2].Width - 3;
             button2.Width = tableLayoutPanel1.Controls[2].Width - 3;
-
-            MySqlConnection databaseConnection = new MySqlConnection(MySQLConnectionString);
-
-            MySqlCommand commandDatabase = new MySqlCommand("show tables", databaseConnection);
-            commandDatabase.CommandTimeout = 60;
-            try
+            using (SQLClass initialization = new SQLClass("show tables", MySQLConnectionString))
             {
-                databaseConnection.Open();
-                MySqlDataReader myReader = commandDatabase.ExecuteReader();
-
-                if (myReader.HasRows)
+                for (int Index = 0; initialization.Reader.Read(); Index++)
                 {
-                    for (int Index = 0; myReader.Read(); Index++)
-                    {
-                        TabPage page = new TabPage();
-                        page.Text = myReader.GetString(0);
-                        DatabaseTabControl.TabPages.Add(page);
-                        page.Location = new System.Drawing.Point(4, 38);
-                        page.Padding = new System.Windows.Forms.Padding(3);
-                        page.Size = new System.Drawing.Size(782, 798);
-                        page.TabIndex = Index;
-                        page.UseVisualStyleBackColor = true;
+                    TabPage page = new TabPage();
+                    page.Text = initialization.Reader.GetString(0);//page name
+                    DatabaseTabControl.TabPages.Add(page);
+                    page.Location = new System.Drawing.Point(4, 38);
+                    page.Padding = new System.Windows.Forms.Padding(3);
+                    page.Size = new System.Drawing.Size(782, 798);
+                    page.UseVisualStyleBackColor = true;
 
-                        DataGridView data = new DataGridView();
-                        page.Controls.Add(data);
-                        data.Location = new System.Drawing.Point(3, 3);
-                        data.RowTemplate.Height = 27;
-                        data.Size = new System.Drawing.Size(776, 792);
-                        data.Dock = System.Windows.Forms.DockStyle.Fill;
-                        data.TabIndex = Index;
-                        data.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-                        MySqlConnection dc = new MySqlConnection(MySQLConnectionString);
-                        MySqlCommand title = new MySqlCommand("select column_name from INFORMATION_SCHEMA.COLUMNS where table_name='" + myReader.GetString(0) + "'", dc);
-                        dc.Open();
-                        MySqlDataReader titleReader = title.ExecuteReader();
-                        for (int strindex = 0; titleReader.Read(); strindex++)
+                    DataGridView data = new DataGridView();
+                    page.Controls.Add(data);
+                    data.Location = new System.Drawing.Point(3, 3);
+                    data.RowTemplate.Height = 27;
+                    data.Size = new System.Drawing.Size(776, 792);
+                    data.Dock = System.Windows.Forms.DockStyle.Fill;
+                    data.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+
+                    using (SQLClass title = new SQLClass("select column_name from INFORMATION_SCHEMA.COLUMNS where table_name='" + initialization.Reader.GetString(0) + "'", MySQLConnectionString))
+                    {
+                        for (int strindex = 0; title.Reader.Read(); strindex++)
                         {
                             DataGridViewTextBoxColumn Column = new System.Windows.Forms.DataGridViewTextBoxColumn();
-                            Column.HeaderText = titleReader.GetString(0);
-                            Column.Name = titleReader.GetString(0);
+                            Column.HeaderText = title.Reader.GetString(0);
+                            Column.Name = title.Reader.GetString(0);
                             Column.ReadOnly = true;
                             Column.Resizable = System.Windows.Forms.DataGridViewTriState.False;
                             Column.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
                             data.Columns.AddRange(Column);
                         }
-                        dc.Close();
-
-                        addrow(myReader.GetString(0), string.Empty, string.Empty, data);
-
                     }
+                   addrow(initialization.Reader.GetString(0), string.Empty, string.Empty, data);//讀入資料
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Query error" + ex.Message);
-            }
-            searchListbox(DatabaseTabControl.SelectedIndex);
-            databaseConnection.Close();
-
+            searchListbox(DatabaseTabControl.SelectedIndex);//初始化搜尋欄位
             receiver_backgroundWorker.RunWorkerAsync();
         }
         private void addrow(string tbName, string tbCol, string search, DataGridView data)
