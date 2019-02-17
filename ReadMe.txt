@@ -7,3 +7,5 @@ DataGridView 裡面的table建立方式 是用new一個一個的加入進去
 反正功能一樣，就沒必要改了
 
 目前所有功能都在 MainForm.cs 裡面
+
+新增圖片的功能完成了
