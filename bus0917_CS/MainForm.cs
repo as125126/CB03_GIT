@@ -424,7 +424,6 @@ namespace bus0917_CS
                         add_new_panel_face_by_list(temp_list);
                     }
                 }
-
             }
         }
 
@@ -461,6 +460,13 @@ namespace bus0917_CS
             }
             #endregion
 
+            #region 檢查有無Picture資料夾
+            Console.WriteLine(Directory.GetCurrentDirectory());
+            if (!Directory.Exists("Picture"))
+                Directory.CreateDirectory("Picture");
+            #endregion
+
+
             ColumnListBox.Width = tableLayoutPanel1.Controls[2].Width - 3;
             SearchTextBox.Width = tableLayoutPanel1.Controls[2].Width - 3;
             SearchButton.Width = tableLayoutPanel1.Controls[2].Width - 3;
@@ -484,6 +490,10 @@ namespace bus0917_CS
                     data.Size = new System.Drawing.Size(776, 792);
                     data.Dock = System.Windows.Forms.DockStyle.Fill;
                     data.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+                    data.AllowUserToAddRows = false;
+                    //添加顯示圖片功能
+                    if (String.Compare(page.Text, "Scan_Card_Info",true)==0)
+                        data.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DoubleClickShowPictrue);
 
                     using (SQLClass title = new SQLClass("select column_name from INFORMATION_SCHEMA.COLUMNS where table_name='" + initialization.Reader.GetString(0) + "'", MySQLConnectionString))
                     {
@@ -512,7 +522,8 @@ namespace bus0917_CS
             {
                 while (rowData.Reader.Read())
                 {
-                    DataGridViewRow row = (DataGridViewRow)data.Rows[0].Clone();
+                    DataGridViewRow row = new DataGridViewRow();
+                    row.CreateCells(data);
                     for (int index = 0; index < rowData.Reader.FieldCount; index++)
                         row.Cells[index].Value = rowData.Reader.GetString(index);
                     data.Rows.Add(row);
@@ -575,5 +586,27 @@ namespace bus0917_CS
         {
             Create_socket_and_receive_image();
         }
+        
+        private void DoubleClickShowPictrue(object sender, DataGridViewCellMouseEventArgs e)//顯示圖片
+        {
+            if (((DataGridView)(((TabPage)(DatabaseTabControl.TabPages[2])).Controls[0])).CurrentCell.ColumnIndex == 3)
+            {
+                if (File.Exists("Picture/" + ((DataGridView)(((TabPage)(DatabaseTabControl.TabPages[2])).Controls[0])).CurrentCell.Value.ToString()))//先看看圖片存不存在
+                {
+                    System.Diagnostics.Process process = new System.Diagnostics.Process();
+                    process.StartInfo.FileName = Directory.GetCurrentDirectory() + "/Picture/" + ((DataGridView)(((TabPage)(DatabaseTabControl.TabPages[2])).Controls[0])).CurrentCell.Value.ToString();
+                    process.StartInfo.Arguments = "rundll32.exe C://WINDOWS//system32//shimgvw.dll,ImageView_Fullscreen";
+                    process.StartInfo.UseShellExecute = true;
+                    process.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                    process.Start();//使用windows的圖片顯示器來顯示圖片
+                    process.Close();
+                }
+                else
+                {
+                    MessageBox.Show(Directory.GetCurrentDirectory() + "/Picture/" + ((DataGridView)(((TabPage)(DatabaseTabControl.TabPages[2])).Controls[0])).CurrentCell.Value.ToString() + "\n圖片不存在", "錯誤", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        
     }
 }
