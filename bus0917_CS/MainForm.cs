@@ -182,24 +182,24 @@ namespace bus0917_CS
         private void takePicStartButton_Click(object sender, EventArgs e)
         {
             takePicStartButton.Enabled = false;
-            comboBox1.Enabled = false;
+            StudentIDListComboBox.Enabled = false;
             takePicTextBox.Enabled = false;
 
-            if (comboBox1.Text.Equals(string.Empty) || takePicTextBox.Text.Equals(string.Empty))
+            if (StudentIDListComboBox.Text.Equals(string.Empty) || takePicTextBox.Text.Equals(string.Empty))
             {
                 MessageBox.Show("學號、檔案名填寫完整", string.Empty, MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
                 takePicStartButton.Enabled = true;
-                comboBox1.Enabled = true;
+                StudentIDListComboBox.Enabled = true;
                 takePicTextBox.Enabled = true;
                 return;
             }
-            else if (!comboBox1.Items.Contains(comboBox1.Text))
+            else if (!StudentIDListComboBox.Items.Contains(StudentIDListComboBox.Text))
             {
                 MessageBox.Show("沒有這個學號", string.Empty, MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
                 takePicStartButton.Enabled = true;
-                comboBox1.Enabled = true;
+                StudentIDListComboBox.Enabled = true;
                 takePicTextBox.Enabled = true;
                 return;
             }
@@ -210,7 +210,7 @@ namespace bus0917_CS
                           MessageBoxIcon.Information);
                     takePicTextBox.Text = string.Empty;
                     takePicStartButton.Enabled = true;
-                    comboBox1.Enabled = true;
+                    StudentIDListComboBox.Enabled = true;
                     takePicTextBox.Enabled = true;
                     return;
                 }
@@ -248,23 +248,11 @@ namespace bus0917_CS
 
             MySqlConnection databaseConnection = new MySqlConnection(MySQLConnectionString);
             databaseConnection.Open();
-            string adddata = string.Format("insert into face_info value('{0}','{1}\\{2}','{3}')", takePicTextBox.Text, Directory.GetCurrentDirectory(), takePicTextBox.Text, comboBox1.Text).Replace("\\", "\\\\");
+            string adddata = string.Format("insert into face_info value('{0}','{1}\\{2}','{3}')", takePicTextBox.Text, Directory.GetCurrentDirectory(), takePicTextBox.Text, StudentIDListComboBox.Text).Replace("\\", "\\\\");
             MySqlCommand commandDatabase = new MySqlCommand(adddata, databaseConnection);
             commandDatabase.Connection = databaseConnection;
             commandDatabase.ExecuteNonQuery();
-            Console.WriteLine(adddata);
             databaseConnection.Close();
-
-            /*foreach (Control con in DatabaseTabControl.Controls)//新增臉後，即時更新DataGridView
-            {
-
-                string tbName = ((TabPage)con).Text;
-                if (tbName.Equals("face_info"))
-                {
-                    ((DataGridView)con.Controls[0]).Rows.Clear();
-                    addrow(tbName, string.Empty, string.Empty, (DataGridView)con.Controls[0]);
-                }
-            }*/
 
             takePicListView.Items.Clear();
             imageList.Images.Clear();
@@ -273,10 +261,12 @@ namespace bus0917_CS
             if (Directory.Exists("temp_data_" + newest_user))
                 Directory.Delete("temp_data_" + newest_user, true);
 
-            takePicTextBox.Text = string.Empty;
-            comboBox1.Text = string.Empty;
+            addrow("select * from face_info where Face_Id = '"+ takePicTextBox.Text + "'", ((DataGridView)(((TabPage)(DatabaseTabControl.TabPages[1])).Controls[0])));
 
-            comboBox1.Enabled = true;
+            takePicTextBox.Text = string.Empty;
+            StudentIDListComboBox.Text = string.Empty;
+
+            StudentIDListComboBox.Enabled = true;
             takePicTextBox.Enabled = true;
             takePicStartButton.Enabled = true;
             trainingTrainButton.Enabled = true;
@@ -295,9 +285,9 @@ namespace bus0917_CS
             if (Directory.Exists("temp_data_" + newest_user))
                 Directory.Delete("temp_data_" + newest_user, true);
 
-            comboBox1.Text = string.Empty;
+            StudentIDListComboBox.Text = string.Empty;
             takePicTextBox.Text = string.Empty;
-            comboBox1.Enabled = true;
+            StudentIDListComboBox.Enabled = true;
             takePicTextBox.Enabled = true;
             takePicStartButton.Enabled = true;
         }
@@ -435,7 +425,7 @@ namespace bus0917_CS
         }
 
         string MySQLConnectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=db;sslmode = none;";
-
+        int ScanFaceInfoIndex, ScanCardInfoIndex;//供更新畫面使用
         private void MainForm_Load(object sender, EventArgs e)
         {
             #region 檢查mysql有沒有打開
@@ -466,14 +456,20 @@ namespace bus0917_CS
                 Directory.CreateDirectory("Picture");
             #endregion
 
+            using (SQLClass StudentID=new SQLClass("select * from student_info", MySQLConnectionString))
+            {
+                while(StudentID.Reader.Read())
+                    StudentIDListComboBox.Items.Add(StudentID.Reader.GetString(0));
+            }
 
-            ColumnListBox.Width = tableLayoutPanel1.Controls[2].Width - 3;
+
+                ColumnListBox.Width = tableLayoutPanel1.Controls[2].Width - 3;
             SearchTextBox.Width = tableLayoutPanel1.Controls[2].Width - 3;
             SearchButton.Width = tableLayoutPanel1.Controls[2].Width - 3;
             DefaultButton.Width = tableLayoutPanel1.Controls[2].Width - 3;
             using (SQLClass initialization = new SQLClass("show tables", MySQLConnectionString))
             {
-                for (int Index = 0; initialization.Reader.Read(); Index++)
+                while(initialization.Reader.Read())
                 {
                     TabPage page = new TabPage();
                     page.Text = initialization.Reader.GetString(0);//page name
@@ -497,8 +493,8 @@ namespace bus0917_CS
 
                     using (SQLClass title = new SQLClass("select column_name from INFORMATION_SCHEMA.COLUMNS where table_name='" + initialization.Reader.GetString(0) + "'", MySQLConnectionString))
                     {
-                        for (int strindex = 0; title.Reader.Read(); strindex++)
-                        {
+                        while (title.Reader.Read())
+                        { 
                             DataGridViewTextBoxColumn Column = new System.Windows.Forms.DataGridViewTextBoxColumn();
                             Column.HeaderText = title.Reader.GetString(0);
                             Column.Name = title.Reader.GetString(0);
@@ -513,6 +509,23 @@ namespace bus0917_CS
             }
             searchListbox(DatabaseTabControl.SelectedIndex);//初始化搜尋欄位
             receiver_backgroundWorker.RunWorkerAsync();
+
+            #region 初始化FileSystemWatcher供更新畫面用
+            using (SQLClass ScanFaceInfoCount = new SQLClass("select count(*) from scan_face_info", MySQLConnectionString))
+            {
+                ScanFaceInfoCount.Reader.Read();
+                ScanFaceInfoIndex = ScanFaceInfoCount.Reader.GetInt32(0);
+            }
+            using (SQLClass ScanCardInfoCount = new SQLClass("select count(*) from scan_card_info", MySQLConnectionString))
+            {
+                ScanCardInfoCount.Reader.Read();
+                ScanCardInfoIndex = ScanCardInfoCount.Reader.GetInt32(0);
+            }
+            this.ScanFaceInfoWatcher.Changed += new System.IO.FileSystemEventHandler(this.ScanFaceInfoWatcher_Changed);
+            this.ScanCardInfoWatcher.Changed += new System.IO.FileSystemEventHandler(this.ScanCardInfoWatcher_Changed);
+            this.ScanFaceInfoWatcher.EnableRaisingEvents = true;
+            this.ScanCardInfoWatcher.EnableRaisingEvents = true;
+            #endregion
         }
         private void addrow(string DbCommand, DataGridView data)
         //DbCommand: Db的指令
@@ -544,7 +557,6 @@ namespace bus0917_CS
         }
         private void SearchButton_Click(object sender, EventArgs e)//搜尋功能
         {
-            updata_timer.Enabled = false;
             if (ColumnListBox.SelectedIndex == -1)
             {
                 MessageBox.Show("Please select something in listbox");
@@ -569,19 +581,7 @@ namespace bus0917_CS
                 string tbName = ((TabPage)con).Text;
                 addrow("select * from " + tbName, (DataGridView)con.Controls[0]);
             }
-            updata_timer.Enabled = true;
         }
-
-        private void updata_timer_Tick(object sender, EventArgs e)
-        {
-            foreach (Control con in DatabaseTabControl.Controls)
-            {
-                ((DataGridView)con.Controls[0]).Rows.Clear();
-                string tbName = ((TabPage)con).Text;
-                addrow("select * from " + tbName, (DataGridView)con.Controls[0]);
-            }
-        }
-
         private void receiver_backgroundWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             Create_socket_and_receive_image();
@@ -607,6 +607,26 @@ namespace bus0917_CS
                 }
             }
         }
-        
+
+        private void ScanFaceInfoWatcher_Changed(object sender, FileSystemEventArgs e)
+        {
+            addrow("select * from scan_face_info where Face_Record >" + ScanFaceInfoIndex, ((DataGridView)(((TabPage)(DatabaseTabControl.TabPages[3])).Controls[0])));
+            //把大於Face_Record的row都加進去
+            using (SQLClass CurrentCount = new SQLClass("select count(*) from scan_face_info", MySQLConnectionString))
+            {
+                CurrentCount.Reader.Read();
+                ScanFaceInfoIndex = CurrentCount.Reader.GetInt32(0);
+            }
+        }
+
+        private void ScanCardInfoWatcher_Changed(object sender, FileSystemEventArgs e)
+        {
+            addrow("select * from scan_card_info where Card_Record >" + ScanCardInfoIndex, ((DataGridView)(((TabPage)(DatabaseTabControl.TabPages[2])).Controls[0])));
+            using (SQLClass CurrentCount = new SQLClass("select count(*) from scan_card_info", MySQLConnectionString))
+            {
+                CurrentCount.Reader.Read();
+                ScanCardInfoIndex = CurrentCount.Reader.GetInt32(0);
+            }
+        }
     }
 }

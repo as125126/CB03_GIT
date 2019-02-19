@@ -61,7 +61,7 @@
             this.takePicListView = new System.Windows.Forms.ListView();
             this.takePicLabel = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.StudentIDListComboBox = new System.Windows.Forms.ComboBox();
             this.TrainXMLTab = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.trainingTitleLabel = new System.Windows.Forms.Label();
@@ -77,8 +77,9 @@
             this.SearchButton = new System.Windows.Forms.Button();
             this.DefaultButton = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.updata_timer = new System.Windows.Forms.Timer(this.components);
             this.receiver_backgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.ScanFaceInfoWatcher = new System.IO.FileSystemWatcher();
+            this.ScanCardInfoWatcher = new System.IO.FileSystemWatcher();
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
@@ -91,6 +92,8 @@
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ScanFaceInfoWatcher)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ScanCardInfoWatcher)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -371,7 +374,7 @@
             this.tableLayoutPanel3.Controls.Add(this.takePicListView, 0, 2);
             this.tableLayoutPanel3.Controls.Add(this.takePicLabel, 0, 4);
             this.tableLayoutPanel3.Controls.Add(this.label14, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.comboBox1, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.StudentIDListComboBox, 1, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(6, 5);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
@@ -479,15 +482,15 @@
             this.label14.TabIndex = 7;
             this.label14.Text = "Student ID";
             // 
-            // comboBox1
+            // StudentIDListComboBox
             // 
-            this.tableLayoutPanel3.SetColumnSpan(this.comboBox1, 2);
-            this.comboBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(252, 51);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(494, 37);
-            this.comboBox1.TabIndex = 8;
+            this.tableLayoutPanel3.SetColumnSpan(this.StudentIDListComboBox, 2);
+            this.StudentIDListComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.StudentIDListComboBox.FormattingEnabled = true;
+            this.StudentIDListComboBox.Location = new System.Drawing.Point(252, 51);
+            this.StudentIDListComboBox.Name = "StudentIDListComboBox";
+            this.StudentIDListComboBox.Size = new System.Drawing.Size(494, 37);
+            this.StudentIDListComboBox.TabIndex = 8;
             // 
             // TrainXMLTab
             // 
@@ -658,15 +661,25 @@
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // updata_timer
-            // 
-            this.updata_timer.Enabled = true;
-            this.updata_timer.Interval = 5000;
-            this.updata_timer.Tick += new System.EventHandler(this.updata_timer_Tick);
-            // 
             // receiver_backgroundWorker
             // 
             this.receiver_backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.receiver_backgroundWorker_DoWork);
+            // 
+            // ScanFaceInfoWatcher
+            // 
+            this.ScanFaceInfoWatcher.EnableRaisingEvents = true;
+            this.ScanFaceInfoWatcher.Filter = "scan_face_info.ibd";
+            this.ScanFaceInfoWatcher.NotifyFilter = System.IO.NotifyFilters.LastAccess;
+            this.ScanFaceInfoWatcher.Path = "C:\\xampp\\mysql\\data\\db";
+            this.ScanFaceInfoWatcher.SynchronizingObject = this;
+            // 
+            // ScanCardInfoWatcher
+            // 
+            this.ScanCardInfoWatcher.EnableRaisingEvents = true;
+            this.ScanCardInfoWatcher.Filter = "scan_card_info.ibd";
+            this.ScanCardInfoWatcher.NotifyFilter = System.IO.NotifyFilters.LastAccess;
+            this.ScanCardInfoWatcher.Path = "C:\\xampp\\mysql\\data\\db";
+            this.ScanCardInfoWatcher.SynchronizingObject = this;
             // 
             // MainForm
             // 
@@ -700,6 +713,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ScanFaceInfoWatcher)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ScanCardInfoWatcher)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -753,8 +768,9 @@
         private System.Windows.Forms.TextBox takePicTextBox;
         private System.Windows.Forms.ListView takePicListView;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Timer updata_timer;
+        private System.Windows.Forms.ComboBox StudentIDListComboBox;
         private System.ComponentModel.BackgroundWorker receiver_backgroundWorker;
+        private System.IO.FileSystemWatcher ScanFaceInfoWatcher;
+        private System.IO.FileSystemWatcher ScanCardInfoWatcher;
     }
 }
