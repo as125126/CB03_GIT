@@ -96,6 +96,7 @@ namespace bus0917_CS
             {
                 IpAdd = iib.get_ip();
                 reply = IpAddress.Send(IPAddress.Parse(iib.get_ip()));
+                label10.Text = IpAdd;
             }
         }
 
@@ -175,7 +176,6 @@ namespace bus0917_CS
                 takePicLabel.Text = "att_faces/" + newest_user + "/" + r.ToString() + ".pgm";
 
                 paths.RemoveAt(to_delete);
-
             }
         }
 
@@ -236,9 +236,6 @@ namespace bus0917_CS
 
             takePicFinishButton.Enabled = true;
             takePicCancelButton.Enabled = true;
-
-
-
         }
 
         private void takePicFinishButton_Click(object sender, EventArgs e)
@@ -616,6 +613,7 @@ namespace bus0917_CS
             {
                 CurrentCount.Reader.Read();
                 ScanFaceInfoIndex = CurrentCount.Reader.GetInt32(0);
+                label_PersonName.Text = ((DataGridView)(((TabPage)(DatabaseTabControl.TabPages[3])).Controls[0])).Rows[ScanFaceInfoIndex - 1].Cells[1].Value.ToString();
             }
         }
 
@@ -626,6 +624,7 @@ namespace bus0917_CS
             {
                 CurrentCount.Reader.Read();
                 ScanCardInfoIndex = CurrentCount.Reader.GetInt32(0);
+                label_card.Text = ((DataGridView)(((TabPage)(DatabaseTabControl.TabPages[2])).Controls[0])).Rows[ScanCardInfoIndex-1].Cells[1].Value.ToString();
             }
         }
     }

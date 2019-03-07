@@ -41,15 +41,15 @@
             this.FunctionsTabControl = new System.Windows.Forms.TabControl();
             this.InfoTab = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.label_person = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.label_PersonName = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.label_card = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.TakePictureTab = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -217,15 +217,15 @@
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label_person, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.label3, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.label4, 0, 3);
             this.tableLayoutPanel2.Controls.Add(this.label5, 0, 4);
-            this.tableLayoutPanel2.Controls.Add(this.label6, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label_PersonName, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.label7, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.label8, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.label9, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.label_card, 1, 3);
             this.tableLayoutPanel2.Controls.Add(this.label10, 1, 4);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(6, 5);
@@ -240,16 +240,16 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(749, 360);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
-            // label1
+            // label_person
             // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Location = new System.Drawing.Point(6, 0);
-            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(362, 72);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Person";
+            this.label_person.AutoSize = true;
+            this.label_person.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label_person.Location = new System.Drawing.Point(6, 0);
+            this.label_person.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label_person.Name = "label_person";
+            this.label_person.Size = new System.Drawing.Size(362, 72);
+            this.label_person.TabIndex = 0;
+            this.label_person.Text = "Person";
             // 
             // label2
             // 
@@ -295,16 +295,16 @@
             this.label5.TabIndex = 4;
             this.label5.Text = "IP Connection";
             // 
-            // label6
+            // label_PersonName
             // 
-            this.label6.AutoSize = true;
-            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.Location = new System.Drawing.Point(380, 0);
-            this.label6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(363, 72);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Not Detected";
+            this.label_PersonName.AutoSize = true;
+            this.label_PersonName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label_PersonName.Location = new System.Drawing.Point(380, 0);
+            this.label_PersonName.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label_PersonName.Name = "label_PersonName";
+            this.label_PersonName.Size = new System.Drawing.Size(363, 72);
+            this.label_PersonName.TabIndex = 5;
+            this.label_PersonName.Text = "Not Detected";
             // 
             // label7
             // 
@@ -326,16 +326,16 @@
             this.label8.Size = new System.Drawing.Size(363, 72);
             this.label8.TabIndex = 7;
             // 
-            // label9
+            // label_card
             // 
-            this.label9.AutoSize = true;
-            this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label9.Location = new System.Drawing.Point(380, 216);
-            this.label9.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(363, 72);
-            this.label9.TabIndex = 8;
-            this.label9.Text = "Not Detected";
+            this.label_card.AutoSize = true;
+            this.label_card.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label_card.Location = new System.Drawing.Point(380, 216);
+            this.label_card.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label_card.Name = "label_card";
+            this.label_card.Size = new System.Drawing.Size(363, 72);
+            this.label_card.TabIndex = 8;
+            this.label_card.Text = "Not Detected";
             // 
             // label10
             // 
@@ -680,6 +680,7 @@
             this.ScanCardInfoWatcher.NotifyFilter = System.IO.NotifyFilters.LastAccess;
             this.ScanCardInfoWatcher.Path = "C:\\xampp\\mysql\\data\\db";
             this.ScanCardInfoWatcher.SynchronizingObject = this;
+            this.ScanCardInfoWatcher.Changed += new System.IO.FileSystemEventHandler(this.ScanCardInfoWatcher_Changed);
             // 
             // MainForm
             // 
@@ -735,15 +736,15 @@
         private System.Windows.Forms.TabControl FunctionsTabControl;
         private System.Windows.Forms.TabPage InfoTab;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label_person;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label_PersonName;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label_card;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TabPage TakePictureTab;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
