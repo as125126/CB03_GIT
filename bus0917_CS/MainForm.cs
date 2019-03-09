@@ -613,8 +613,25 @@ namespace bus0917_CS
             {
                 CurrentCount.Reader.Read();
                 ScanFaceInfoIndex = CurrentCount.Reader.GetInt32(0);
+                if (Person_timer.Enabled)
+                {
+                    Person_timer.Stop();
+                }
+                Person_timer.Start();
                 label_PersonName.Text = ((DataGridView)(((TabPage)(DatabaseTabControl.TabPages[3])).Controls[0])).Rows[ScanFaceInfoIndex - 1].Cells[1].Value.ToString();
             }
+        }
+
+        private void Card_timer_Tick(object sender, EventArgs e)
+        {
+            label_card.Text = "Not Detected";
+            Card_timer.Stop();
+        }
+
+        private void Person_timer_Tick(object sender, EventArgs e)
+        {
+            label_PersonName.Text = "Not Detected";
+            Person_timer.Stop();
         }
 
         private void ScanCardInfoWatcher_Changed(object sender, FileSystemEventArgs e)
@@ -624,6 +641,11 @@ namespace bus0917_CS
             {
                 CurrentCount.Reader.Read();
                 ScanCardInfoIndex = CurrentCount.Reader.GetInt32(0);
+                if (Card_timer.Enabled)
+                {
+                    Card_timer.Stop();
+                }
+                Card_timer.Start();
                 label_card.Text = ((DataGridView)(((TabPage)(DatabaseTabControl.TabPages[2])).Controls[0])).Rows[ScanCardInfoIndex-1].Cells[1].Value.ToString();
             }
         }

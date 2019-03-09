@@ -80,6 +80,8 @@
             this.receiver_backgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.ScanFaceInfoWatcher = new System.IO.FileSystemWatcher();
             this.ScanCardInfoWatcher = new System.IO.FileSystemWatcher();
+            this.Card_timer = new System.Windows.Forms.Timer(this.components);
+            this.Person_timer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
@@ -682,6 +684,18 @@
             this.ScanCardInfoWatcher.SynchronizingObject = this;
             this.ScanCardInfoWatcher.Changed += new System.IO.FileSystemEventHandler(this.ScanCardInfoWatcher_Changed);
             // 
+            // Card_timer
+            // 
+            this.Card_timer.Enabled = true;
+            this.Card_timer.Interval = 5000;
+            this.Card_timer.Tick += new System.EventHandler(this.Card_timer_Tick);
+            // 
+            // Person_timer
+            // 
+            this.Person_timer.Enabled = true;
+            this.Person_timer.Interval = 5000;
+            this.Person_timer.Tick += new System.EventHandler(this.Person_timer_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 29F);
@@ -773,5 +787,7 @@
         private System.ComponentModel.BackgroundWorker receiver_backgroundWorker;
         private System.IO.FileSystemWatcher ScanFaceInfoWatcher;
         private System.IO.FileSystemWatcher ScanCardInfoWatcher;
+        private System.Windows.Forms.Timer Card_timer;
+        private System.Windows.Forms.Timer Person_timer;
     }
 }
