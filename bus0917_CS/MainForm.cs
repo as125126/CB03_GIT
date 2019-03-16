@@ -568,6 +568,8 @@ namespace bus0917_CS
                 if (((DataGridView)con.Controls[0]).Columns.Contains(tbCol))//先確認page的Column裡面有沒有tbCol
                     addrow("select * from " + tbName + " where " + tbCol + " ='" + search + "'", (DataGridView)con.Controls[0]);
             }
+            ScanFaceInfoWatcher.EnableRaisingEvents = false;
+            ScanCardInfoWatcher.EnableRaisingEvents = false;
         }
 
         private void DefaultButton_Click(object sender, EventArgs e)//重置
@@ -578,6 +580,21 @@ namespace bus0917_CS
                 string tbName = ((TabPage)con).Text;
                 addrow("select * from " + tbName, (DataGridView)con.Controls[0]);
             }
+
+            #region 初始化FileSystemWatcher供更新畫面用
+            using (SQLClass ScanFaceInfoCount = new SQLClass("select count(*) from scan_face_info", MySQLConnectionString))
+            {
+                ScanFaceInfoCount.Reader.Read();
+                ScanFaceInfoIndex = ScanFaceInfoCount.Reader.GetInt32(0);
+            }
+            using (SQLClass ScanCardInfoCount = new SQLClass("select count(*) from scan_card_info", MySQLConnectionString))
+            {
+                ScanCardInfoCount.Reader.Read();
+                ScanCardInfoIndex = ScanCardInfoCount.Reader.GetInt32(0);
+            }
+
+            ScanFaceInfoWatcher.EnableRaisingEvents = true;
+            ScanCardInfoWatcher.EnableRaisingEvents = true;
         }
         private void receiver_backgroundWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
